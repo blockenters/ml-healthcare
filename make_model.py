@@ -79,7 +79,7 @@ print(f"R^2: {r2:.2f}")
 
 # 모델을 파일로 저장하자
 import joblib
-joblib.dump(pipeline, 'model/healthcare_model.pkl')
+joblib.dump(pipeline, 'models/healthcare_model.pkl')
 
 
 # Step 7: 새로운 데이터 예측 함수
