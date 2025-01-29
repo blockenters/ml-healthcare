@@ -39,7 +39,7 @@ def create_charts(df):
     df['BMI_Category'] = pd.cut(df['BMI'], 
                                bins=[0, 18.5, 25, 30, 100],
                                labels=['저체중', '정상', '과체중', '비만'])
-    bmi_avg = df.groupby('BMI_Category')['InsuranceClaim'].mean().reset_index()
+    bmi_avg = df.groupby('BMI_Category', observed=True)['InsuranceClaim'].mean().reset_index()
     fig = px.bar(bmi_avg, x='BMI_Category', y='InsuranceClaim',
                  title='BMI 구간별 평균 보험 청구액',
                  labels={'InsuranceClaim': '평균 보험 청구액', 'BMI_Category': 'BMI 구간'})
@@ -47,7 +47,7 @@ def create_charts(df):
     
     # 4. 지역별 평균 보험 청구액
     st.subheader('지역별 평균 보험 청구액')
-    region_avg = df.groupby('Region')['InsuranceClaim'].mean().reset_index()
+    region_avg = df.groupby('Region', observed=True)['InsuranceClaim'].mean().reset_index()
     fig = px.pie(region_avg, values='InsuranceClaim', names='Region',
                  title='지역별 평균 보험 청구액 비율')
     st.plotly_chart(fig)
